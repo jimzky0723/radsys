@@ -20,7 +20,7 @@ define('LARAVEL_START', microtime(true));
 | loading any of our classes later on. It feels great to relax.
 |
 */
-$dir = realpath(__DIR__ .'/../../ris');
+$dir = realpath(__DIR__ .'/../../server/radsys');
 require $dir.'/vendor/autoload.php';
 
 /*
