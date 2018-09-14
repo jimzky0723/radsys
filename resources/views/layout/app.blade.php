@@ -9,6 +9,7 @@
     <!-- Meta -->
     <meta name="description" content="Radiology Information System.">
     <meta name="author" content="JiMzKy">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ (isset($title)) ? $title : 'Radiology Information System' }}</title>
 
@@ -17,6 +18,7 @@
     <link href="lib/Ionicons/css/ionicons.css" rel="stylesheet">
 
     <link rel="stylesheet" href="css/style.css">
+
     @yield('css')
 </head>
 
@@ -37,6 +39,7 @@
 <script src="lib/jquery/jquery.js"></script>
 <script src="lib/popper.js/popper.js"></script>
 <script src="lib/bootstrap/bootstrap.js"></script>
+<script src="lib/perfect-scrollbar/js/perfect-scrollbar.jquery.js"></script>
 
 <script src="js/starlight.js"></script>
 @yield('script')

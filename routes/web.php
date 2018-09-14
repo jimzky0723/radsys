@@ -14,3 +14,4 @@
 Route::get('/', 'HomeCtrl@home');
 
 Route::get('login','LoginCtrl@login');
+Route::post('login','LoginCtrl@validateLogin');
