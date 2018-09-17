@@ -51,25 +51,25 @@
                 <span class="menu-item-label">Dashboard</span>
             </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
-
+            <a href="{{ url('doctor/hospital') }}" class="sl-menu-link">
+                <div class="sl-menu-item">
+                    <i class="menu-item-icon fa fa-hospital-o tx-20"></i>
+                    <span class="menu-item-label">Manage Hospitals</span>
+                </div><!-- menu-item -->
+            </a><!-- sl-menu-link -->
         <a href="#" class="sl-menu-link">
             <div class="sl-menu-item">
-                <i class="menu-item-icon fa fa-hospital-o tx-20"></i>
-                <span class="menu-item-label">Manage Hospitals</span>
+                <i class="menu-item-icon icon  ion-ios-filing-outline tx-24"></i>
+                <span class="menu-item-label">Manage Files</span>
                 <i class="menu-item-arrow fa fa-angle-down"></i>
             </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
         <ul class="sl-menu-sub nav flex-column">
-            <li class="nav-item"><a href="#" class="nav-link">Add Hospital</a></li>
-            <li class="nav-item"><a href="{{ url('doctor/hospital') }}" class="nav-link">View list</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">New</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Read</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Pending</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Archived</a></li>
         </ul>
-
-        <a href="#" class="sl-menu-link">
-            <div class="sl-menu-item">
-                <i class="menu-item-icon icon ion-ios-filing-outline tx-24"></i>
-                <span class="menu-item-label">Manage Files</span>
-            </div><!-- menu-item -->
-        </a><!-- sl-menu-link -->
 
         @elseif($user->level == 'hospital')
             <a href="{{ url('/admin/dashboard') }}" class="sl-menu-link active">

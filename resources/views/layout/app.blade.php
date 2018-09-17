@@ -18,7 +18,16 @@
     <link href="{{ url('/') }}/lib/Ionicons/css/ionicons.css" rel="stylesheet">
 
     <link rel="stylesheet" href="{{ url('/') }}/css/style.css">
-
+    <style>
+        button {
+            cursor: pointer;
+        }
+        .line {
+            border-bottom: 1px solid #ddd;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+    </style>
     @yield('css')
 </head>
 

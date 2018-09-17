@@ -15,6 +15,10 @@ class HospitalCtrl extends Controller
 
     public function index()
     {
-        return view('doctor.hospital');
+        return view('doctor.hospital',[
+            'data' => array()
+        ]);
     }
+
+    
 }

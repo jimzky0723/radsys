@@ -15,3 +15,11 @@
         </div><!-- card -->
     </div><!-- sl-pagebody -->
 @endsection
+
+@section('modal')
+
+@endsection
+
+@section('script')
+
+@endsection
