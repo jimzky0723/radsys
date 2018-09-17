@@ -2,7 +2,9 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\Admin;
 use App\Http\Middleware\Auth;
+use App\Http\Middleware\Doctor;
 use App\Http\Middleware\IsLogin;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -60,6 +62,8 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'auth' => Auth::class,
-        'isLogin' => IsLogin::class
+        'isLogin' => IsLogin::class,
+        'admin'=> Admin::class,
+        'doctor' => Doctor::class,
     ];
 }

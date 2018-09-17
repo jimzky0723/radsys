@@ -14,10 +14,10 @@
     <title>{{ (isset($title)) ? $title : 'Radiology Information System' }}</title>
 
     <!-- vendor css -->
-    <link href="lib/font-awesome/css/font-awesome.css" rel="stylesheet">
-    <link href="lib/Ionicons/css/ionicons.css" rel="stylesheet">
+    <link href="{{ url('/') }}/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="{{ url('/') }}/lib/Ionicons/css/ionicons.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="{{ url('/') }}/css/style.css">
 
     @yield('css')
 </head>
@@ -36,12 +36,12 @@
     @include('layout.footer')
 </div><!-- sl-mainpanel -->
 @yield('modal')
-<script src="lib/jquery/jquery.js"></script>
-<script src="lib/popper.js/popper.js"></script>
-<script src="lib/bootstrap/bootstrap.js"></script>
-<script src="lib/perfect-scrollbar/js/perfect-scrollbar.jquery.js"></script>
+<script src="{{ url('/') }}/lib/jquery/jquery.js"></script>
+<script src="{{ url('/') }}/lib/popper.js/popper.js"></script>
+<script src="{{ url('/') }}/lib/bootstrap/bootstrap.js"></script>
+<script src="{{ url('/') }}/lib/perfect-scrollbar/js/perfect-scrollbar.jquery.js"></script>
 
-<script src="js/starlight.js"></script>
+<script src="{{ url('/') }}/js/starlight.js"></script>
 @yield('script')
 </body>
 </html>

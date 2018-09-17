@@ -14,7 +14,7 @@
                 <div class="dropdown-menu dropdown-menu-header wd-200">
                     <ul class="list-unstyled user-profile-nav">
                         <li><a href="#"><i class="icon ion-ios-gear-outline"></i> Account Settings</a></li>
-                        <li><a href="#"><i class="icon ion-power"></i> Sign Out</a></li>
+                        <li><a href="{{ url('logout') }}"><i class="icon ion-power"></i> Sign Out</a></li>
                     </ul>
                 </div><!-- dropdown-menu -->
             </div><!-- dropdown -->

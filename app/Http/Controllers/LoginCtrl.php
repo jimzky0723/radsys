@@ -29,7 +29,7 @@ class LoginCtrl extends Controller
                     return redirect()->back()->with('inactive',true);
                 }
                 Session::put('isLogin',true);
-                Session::put('loginData',$login);
+                Session::put('user',$login);
                 return redirect('/');
             }else{
                 return redirect()->back()->with('incorrect',true);

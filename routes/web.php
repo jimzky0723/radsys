@@ -15,3 +15,9 @@ Route::get('/', 'HomeCtrl@home');
 
 Route::get('login','LoginCtrl@login');
 Route::post('login','LoginCtrl@validateLogin');
+Route::get('/logout', function (){
+    Session::flush();
+    return redirect('login');
+});
+
+Route::get('/doctor/hospital','doctor\HospitalCtrl@index');
