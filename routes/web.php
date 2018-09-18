@@ -21,3 +21,4 @@ Route::get('/logout', function (){
 });
 
 Route::get('/doctor/hospital','doctor\HospitalCtrl@index');
+Route::post('/doctor/hospital','doctor\HospitalCtrl@saveHospital');

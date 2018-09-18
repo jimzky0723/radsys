@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\doctor;
 
+use App\Hospital;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 
 class HospitalCtrl extends Controller
 {
@@ -15,10 +18,35 @@ class HospitalCtrl extends Controller
 
     public function index()
     {
+        $data = Hospital::orderBy('name','asc')->paginate(30);
         return view('doctor.hospital',[
-            'data' => array()
+            'data' => $data
         ]);
     }
 
-    
+    public function saveHospital(Request $req)
+    {
+        $chkUsername = User::where('username',$req->username)->first();
+        if($chkUsername)
+            return redirect()->back()->with('duplicate',$_POST);
+        $u = new User();
+        $u->username = $req->username;
+        $u->password = bcrypt($req->password);
+        $u->level = 'hospital';
+        $u->status = 1;
+        $u->save();
+
+        $user = Session::get('user');
+        $h = new Hospital();
+        $h->doctorId = $user->id;
+        $h->userId = $u->id;
+        $h->name = $req->hospitalName;
+        $h->address = $req->address;
+        $h->contactPerson = $req->contactPerson;
+        $h->contactNumber = $req->contactNumber;
+        $h->dateExpire = date('Y-m-d',strtotime('+1 day'));
+        $h->save();
+
+        return redirect()->back()->with('added',true);
+    }
 }

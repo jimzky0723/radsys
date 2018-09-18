@@ -1,4 +1,16 @@
-
+<?php
+    $info = array(
+        'hospitalName' => '',
+        'address' => '',
+        'contactPerson' => '',
+        'contactNumber' => '',
+        'username' => ''
+    );
+    if(session('duplicate')){
+        $info = session('duplicate');
+    }
+    $info = (object)$info;
+?>
 @extends('layout.app')
 
 @section('content')
@@ -8,37 +20,59 @@
     </nav>
 
     <div class="sl-pagebody">
-        <div class="sl-page-title">
-            <h5>Hospital List</h5>
-        </div>
-        <div class="card pd-20 pd-sm-40 mg-t-50">
+        <div class="card pd-20 pd-sm-40 mg-t-10">
+            @if(session('added'))
             <div class="row">
                 <div class="col-sm-12">
-                    <a href="" class="pull-right btn btn-info" data-toggle="modal" data-target="#hospitalForm">
-                        <i class="fa fa-plus"></i>
-                        Add Hospital
-                    </a>
+                    <div class="alert alert-success mg-t-20" role="alert">
+                        <strong class="d-block d-sm-inline-block-force">Success!</strong> Hospital successfully added.
+                    </div>
                 </div>
+
             </div>
+            @endif
+
+            @if(session('duplicate'))
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="alert alert-danger mg-t-20" role="alert">
+                            <strong class="d-block d-sm-inline-block-force">Opps!</strong> Username {{ $info->username }} is already taken. Please choose another username.
+                        </div>
+                    </div>
+
+                </div>
+            @endif
+            <h3>
+                Hospital List
+                <a href="" class="pull-right btn btn-info" data-toggle="modal" data-target="#hospitalForm">
+                    <i class="fa fa-plus"></i>
+                    Add Hospital
+                </a>
+            </h3>
+
             @if(count($data) > 0)
             <div class="table-responsive mg-t-10">
                 <table class="table table-hover table-bordered mg-b-0">
                     <thead class="bg-info">
                     <tr>
-                        <th>Name</th>
+                        <th>Hospital Name</th>
                         <th>Address</th>
                         <th>Contact</th>
                         <th>Expiration</th>
                     </tr>
                     </thead>
                     <tbody>
+                    @foreach($data as $row)
                     <tr>
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>$320,800</td>
-                        <td>$320,800</td>
+                        <td>{{ $row->name }}}</td>
+                        <td>{!! $row->address !!}</td>
+                        <td>
+                            {{ $row->contactPerson }}<br />
+                            <small class="tx-danger">{{ $row->contactNumber }}</small>
+                        </td>
+                        <td><span class="{{ ($row->dateExpire <= date('Y-m-d')) ? 'tx-danger':'tx-success' }}">{{ date('M d, Y',strtotime($row->dateExpire)) }}</span></td>
                     </tr>
-
+                    @endforeach
                     </tbody>
                 </table>
             </div><!-- table-responsive -->
@@ -66,29 +100,29 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="" method="post" data-parsley-validate>
+                <form action="{{ url('doctor/hospital') }}" method="post" data-parsley-validate>
                 <div class="modal-body pd-20">
                     {{ csrf_field() }}
                     <div class="form-group mg-b-10">
-                        <label>Name of Hospital: <span class="tx-danger">*</span></label>
-                        <input type="text" name="hospitalName" class="form-control wd-200 wd-sm-250" placeholder="Enter Name" required="">
+                        <label>Hospital Name: <span class="tx-danger">*</span></label>
+                        <input value="{{ $info->hospitalName }}" type="text" name="hospitalName" class="form-control wd-200 wd-sm-250" placeholder="Enter Name" required="">
                     </div>
                     <div class="form-group mg-b-10">
                         <label>Address: <span class="tx-danger">*</span></label>
-                        <textarea name="address" class="form-control wd-200 wd-sm-250" placeholder="Enter complete address" required="" rows="4" style="resize: none;"></textarea>
+                        <textarea name="address" class="form-control wd-200 wd-sm-250" placeholder="Enter complete address" required="" rows="4" style="resize: none;">{!! $info->address !!}</textarea>
                     </div>
                     <div class="form-group mg-b-10">
                         <label>Contact Person: <span class="tx-danger">*</span></label>
-                        <input type="text" name="contactPerson" class="form-control wd-200 wd-sm-250" placeholder="Enter Name" required="">
+                        <input value="{{ $info->contactPerson }}" type="text" name="contactPerson" class="form-control wd-200 wd-sm-250" placeholder="Enter Name" required="">
                     </div>
                     <div class="form-group mg-b-10">
                         <label>Contact #: <span class="tx-danger">*</span></label>
-                        <input type="text" name="hospitalName" class="form-control wd-200 wd-sm-250" placeholder="Enter Name" required="">
+                        <input value="{{ $info->contactNumber }}" type="text" name="contactNumber" class="form-control wd-200 wd-sm-250" placeholder="Enter Name" required="">
                     </div>
                     <div class="line"></div>
                     <div class="form-group mg-b-10">
                         <label>Username: <span class="tx-danger">*</span></label>
-                        <input type="text" name="username" class="form-control wd-200 wd-sm-250" placeholder="Enter Username" required="">
+                        <input value="{{ $info->username }}" type="text" name="username" class="form-control wd-200 wd-sm-250" placeholder="Enter Username" required="">
                     </div>
                     <div class="form-group mg-b-10">
                         <label>Password: <span class="tx-danger">*</span></label>
