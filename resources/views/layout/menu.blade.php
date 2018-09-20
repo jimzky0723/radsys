@@ -14,7 +14,7 @@
     <label class="sidebar-label">Menu</label>
     <div class="sl-sideleft-menu">
         @if($user->level == 'admin')
-        <a href="{{ url('/admin/dashboard') }}" class="sl-menu-link active">
+        <a href="{{ url('/admin/dashboard') }}" class="sl-menu-link">
             <div class="sl-menu-item">
                 <i class="menu-item-icon icon ion-ios-home-outline tx-22"></i>
                 <span class="menu-item-label">Dashboard</span>
@@ -45,7 +45,7 @@
             <li class="nav-item"><a href="#" class="nav-link">Doctors list</a></li>
         </ul>
         @elseif($user->level == 'doctor')
-        <a href="{{ url('/admin/dashboard') }}" class="sl-menu-link active">
+        <a href="{{ url('doctor/dashboard') }}" class="sl-menu-link">
             <div class="sl-menu-item">
                 <i class="menu-item-icon icon ion-ios-home-outline tx-22"></i>
                 <span class="menu-item-label">Dashboard</span>
@@ -72,7 +72,7 @@
         </ul>
 
         @elseif($user->level == 'hospital')
-            <a href="{{ url('/admin/dashboard') }}" class="sl-menu-link active">
+            <a href="{{ url('/admin/dashboard') }}" class="sl-menu-link">
                 <div class="sl-menu-item">
                     <i class="menu-item-icon icon ion-ios-home-outline tx-22"></i>
                     <span class="menu-item-label">Dashboard</span>

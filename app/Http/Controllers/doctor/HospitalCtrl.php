@@ -49,4 +49,18 @@ class HospitalCtrl extends Controller
 
         return redirect()->back()->with('added',true);
     }
+
+    public function info($id)
+    {
+        $info = Hospital::select('hospitals.*','hospitals.id as hospitalId','users.*')
+                ->where('hospitals.id',$id)
+                ->join('users','users.id','=','hospitals.userId')
+                ->first();
+        return $info;
+    }
+
+    public function update(Request $req,$id)
+    {
+
+    }
 }

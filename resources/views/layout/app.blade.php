@@ -27,12 +27,23 @@
             padding: 5px;
             margin-bottom: 10px;
         }
+        .loading {
+            opacity:0.8;
+            background:#fff url('{{ asset('spin.gif')}}') no-repeat center;
+            position:fixed;
+            width:100%;
+            height:100%;
+            top:0px;
+            left:0px;
+            z-index:999999999;
+            display: none;
+        }
     </style>
     @yield('css')
 </head>
 
 <body>
-
+<div class="loading"></div>
 @include('layout.menu')
 @include('layout.head')
 
@@ -52,5 +63,14 @@
 
 <script src="{{ url('/') }}/js/starlight.js"></script>
 @yield('script')
+
+<script>
+    $('document').ready(function(){
+        var filename = window.location.href;
+        $('.sidebar-menu li a[href="'+filename+'"]').parent('li').addClass('active');
+
+        $('.sl-sideleft-menu a[href="'+filename+'"]').addClass('active');
+    });
+</script>
 </body>
 </html>

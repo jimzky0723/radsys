@@ -13,6 +13,19 @@
 ?>
 @extends('layout.app')
 
+@section('css')
+    <style>
+        .table td {
+            vertical-align: middle;
+        }
+        .link:hover {
+            cursor: pointer;
+            text-decoration: underline;
+            font-weight:bold;
+        }
+    </style>
+@endsection
+
 @section('content')
     <nav class="breadcrumb sl-breadcrumb">
         <a class="breadcrumb-item" href="{{ url('/') }}">RadioSys</a>
@@ -44,7 +57,7 @@
             @endif
             <h3>
                 Hospital List
-                <a href="" class="pull-right btn btn-info" data-toggle="modal" data-target="#hospitalForm">
+                <a href="" class="pull-right btn btn-info addHospital" data-toggle="modal" data-target="#hospitalFormModal">
                     <i class="fa fa-plus"></i>
                     Add Hospital
                 </a>
@@ -64,7 +77,11 @@
                     <tbody>
                     @foreach($data as $row)
                     <tr>
-                        <td>{{ $row->name }}}</td>
+                        <td>
+                            <span class="link updateHospital" data-id="{{ $row->id }}">
+                            {{ $row->name }}
+                            </span>
+                        </td>
                         <td>{!! $row->address !!}</td>
                         <td>
                             {{ $row->contactPerson }}<br />
@@ -91,7 +108,7 @@
 @endsection
 
 @section('modal')
-    <div id="hospitalForm" class="modal fade">
+    <div id="hospitalFormModal" class="modal fade">
         <div class="modal-dialog modal-sm" role="document">
             <div class="modal-content bd-0 tx-14">
                 <div class="modal-header pd-x-20">
@@ -100,9 +117,11 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="{{ url('doctor/hospital') }}" method="post" data-parsley-validate>
+                <form action="{{ url('doctor/hospital') }}" method="post" id="hospitalForm" data-parsley-validate>
                 <div class="modal-body pd-20">
                     {{ csrf_field() }}
+                    <input type="hidden" name="_method" value="post" id="method" />
+                    <input type="hidden" name="id" value=""/>
                     <div class="form-group mg-b-10">
                         <label>Hospital Name: <span class="tx-danger">*</span></label>
                         <input value="{{ $info->hospitalName }}" type="text" name="hospitalName" class="form-control wd-200 wd-sm-250" placeholder="Enter Name" required="">
@@ -140,4 +159,52 @@
 
 @section('script')
     <script src="{{ url('/') }}/lib/parsleyjs/parsley.js"></script>
+    <script>
+        $('document').ready(function(){
+            $('.addHospital').on('click',function(){
+                changeButtonName('Save');
+                changeMethod('POST');
+                $('#hospitalForm').attr('action','{{ url('doctor/hospital/') }}').parsley().reset();
+                $('.loading').show();
+                setTimeout(function(){
+                    $('.loading').hide();
+                    $('input[name="hospitalName"]').val('').attr('placeholder','Enter hospital name');
+                    $('textarea[name="address"]').val('').attr('placeholder','Complete Address');
+                    $('input[name="contactPerson"]').val('').attr('placeholder','Enter contact person');
+                    $('input[name="contactNumber"]').val('').attr('placeholder','Enter contact number');
+                    $('input[name="username"]').val('').attr('placeholder','Enter username');
+                    $('input[name="password"]').val('').attr('placeholder','Enter password').attr('required',true);
+                },1000);
+            });
+
+            $('.updateHospital').on('click',function(){
+                changeButtonName('Update');
+                changeMethod('PUT');
+                $('.loading').show();
+                var id = $(this).data('id');
+                $('#hospitalForm').attr('action','{{ url('doctor/hospital/') }}/'+id).parsley().reset();
+                $.get('{{ url('doctor/hospital/') }}/'+id , function(data){
+                    $('.loading').hide();
+                    $('#hospitalFormModal').modal();
+                    $('input[name="hospitalName"]').val(data.name);
+                    $('textarea[name="address"]').val(data.address);
+                    $('input[name="contactPerson"]').val(data.contactPerson);
+                    $('input[name="contactNumber"]').val(data.contactNumber);
+                    $('input[name="username"]').val(data.username);
+                    $('input[name="password"]').attr('placeholder','unchanged').attr('required',false);
+                });
+            });
+
+            function changeButtonName(str)
+            {
+                $('button[type="submit"]').html(str);
+            }
+
+            function changeMethod(method)
+            {
+                $('input[name="_method"]').val(method);
+            }
+        });
+
+    </script>
 @endsection
